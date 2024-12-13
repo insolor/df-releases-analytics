@@ -2,10 +2,18 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
+st.set_page_config(page_title="Dwarf Fortress releases per quarter")
+
+st.header("Dwarf Fortress releases per quarter")
+
 df = pd.read_csv("releases.csv")
-# st.write(df)
 
 date_column = "release_date"
+
+if st.checkbox("Include 51.01 betas", value=False):
+    betas = pd.read_csv("betas.csv")
+    df = pd.concat([df, betas])
+    df.sort_values(by=[date_column], inplace=True, ignore_index=True)
 
 df[date_column] = pd.to_datetime(df[date_column])
 
@@ -24,22 +32,17 @@ monthly_counts.index = monthly_counts.index.astype(str)
 monthly_counts["count"] = monthly_counts["version_with_date"].apply(len)
 monthly_counts["versions"] = monthly_counts["version_with_date"].apply(", ".join)
 
-# st.write(monthly_counts)
-
 chart_data = monthly_counts.reset_index().rename(columns={"index": "quarter"})
 chart = alt.Chart(chart_data).mark_bar().encode(
     x=alt.X("quarter:O", title="Quarter"),
     y=alt.Y("count:Q", title="Count"),
     tooltip=[
         alt.Tooltip("quarter:O", title="Quarter"),
-        # alt.Tooltip("count:Q", title="Count"),
         alt.Tooltip("versions:N", title="Releases")
     ]
 ).properties(
     title="Count of releases per quarter",
-    # width=700,
     height=300,
 )
 
-st.header("Dwar Fortress releases per quarter")
 st.altair_chart(chart, use_container_width=True)
