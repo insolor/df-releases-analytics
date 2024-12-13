@@ -2,7 +2,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="Dwarf Fortress releases per quarter")
+st.set_page_config(page_title="Dwarf Fortress releases per quarter", layout="wide")
 
 st.header("Dwarf Fortress releases per quarter")
 
@@ -38,6 +38,7 @@ chart = alt.Chart(chart_data).mark_bar().encode(
     y=alt.Y("count:Q", title="Count"),
     tooltip=[
         alt.Tooltip("quarter:O", title="Quarter"),
+        alt.Tooltip("count:Q", title="Count"),
         alt.Tooltip("versions:N", title="Releases")
     ]
 ).properties(
