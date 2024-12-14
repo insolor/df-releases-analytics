@@ -80,4 +80,4 @@ if selection:
     ).tolist()
     
     df = pd.DataFrame(versions_with_dates, columns=['version', 'date'])
-    st.write(df)
+    st.table(df)
