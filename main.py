@@ -35,7 +35,7 @@ match group_by:
 
 start_date = df[date_column].min().to_period(period_letter)
 end_date = df[date_column].max().to_period(period_letter)
-all_months = pd.period_range(start=start_date, end=end_date, freq=period_letter)
+all_periods = pd.period_range(start=start_date, end=end_date, freq=period_letter)
 
 df["bucket"] = df[date_column].dt.to_period(period_letter)
 df["version_with_date"] = df.apply(
@@ -45,7 +45,7 @@ df["version_with_date"] = df.apply(
 buckets = (
     df.groupby("bucket")
     .agg({"version_with_date": lambda x: list(x)})
-    .reindex(all_months, fill_value=[])
+    .reindex(all_periods, fill_value=[])
 )
 
 buckets.index = buckets.index.astype(str)
