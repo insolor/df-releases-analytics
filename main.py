@@ -56,9 +56,7 @@ def format_version_with_date(versions_with_dates: list[tuple[str, str]]) -> str:
     return ", ".join([f"{version} ({day})" for version, day in versions_with_dates])
 
 
-buckets["versions"] = buckets["version_with_date"].apply(
-    format_version_with_date
-)
+buckets["versions"] = buckets["version_with_date"].apply(format_version_with_date)
 
 interval = alt.selection_interval(encodings=["x"])
 
@@ -87,12 +85,18 @@ event = st.altair_chart(chart, use_container_width=True, on_select="rerun")
 selection = event["selection"]["param_1"]
 if selection:
     bucket = selection["bucket"]
+
+    if len(bucket) == 1:
+        st.write(f"Selected period: {bucket[0]}")
+    else:
+        st.write(f"Selected period: from {bucket[0]} to {bucket[-1]}")
+
     versions_with_dates = (
         buckets.loc[bucket[0] : bucket[-1]]["version_with_date"]
         .apply(pd.Series)
         .stack()
         .unique()
     ).tolist()
-    
-    df = pd.DataFrame(versions_with_dates, columns=['version', 'date'])
+
+    df = pd.DataFrame(versions_with_dates, columns=["version", "date"])
     st.table(df)
