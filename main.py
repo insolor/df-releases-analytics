@@ -99,4 +99,4 @@ if selection:
     ).tolist()
 
     df = pd.DataFrame(versions_with_dates, columns=["version", "date"])
-    st.table(df)
+    st.dataframe(df, hide_index=True, width=500)
