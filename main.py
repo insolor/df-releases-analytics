@@ -18,11 +18,26 @@ df.sort_values(by=[date_column], inplace=True, ignore_index=True)
 
 df[date_column] = pd.to_datetime(df[date_column])
 
-start_date = df[date_column].min().to_period("M")
-end_date = df[date_column].max().to_period("M")
-all_months = pd.period_range(start=start_date, end=end_date, freq="M")
+group_by = st.radio("Group by", ["Months", "Quarters", "Years"])
+match group_by:
+    case "Months":
+        period_letter = "M"
+        period_name = "Month"
+        axis_name = "Months"
+    case "Quarters":
+        period_letter = "Q"
+        period_name = "Quarter"
+        axis_name = "Quarters"
+    case "Years":
+        period_letter = "Y"
+        period_name = "Year"
+        axis_name = "Years"
 
-df["bucket"] = df[date_column].dt.to_period("M")
+start_date = df[date_column].min().to_period(period_letter)
+end_date = df[date_column].max().to_period(period_letter)
+all_months = pd.period_range(start=start_date, end=end_date, freq=period_letter)
+
+df["bucket"] = df[date_column].dt.to_period(period_letter)
 df["version_with_date"] = df.apply(
     lambda row: (row["version_number"], row["release_date"].date().isoformat()), axis=1
 )
@@ -52,10 +67,10 @@ chart = (
     alt.Chart(chart_data)
     .mark_bar()
     .encode(
-        x=alt.X("bucket:O", title="Month"),
+        x=alt.X("bucket:O", title=axis_name),
         y=alt.Y("count:Q", title="Count"),
         tooltip=[
-            alt.Tooltip("bucket:O", title="Month"),
+            alt.Tooltip("bucket:O", title=period_name),
             alt.Tooltip("count:Q", title="Count"),
             alt.Tooltip("versions:N", title="Releases"),
         ],
