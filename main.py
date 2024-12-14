@@ -13,8 +13,9 @@ date_column = "release_date"
 
 # Add 51.01 beta versions
 betas = pd.read_csv("betas.csv")
-df = pd.concat([df, betas])
-df.sort_values(by=[date_column], inplace=True, ignore_index=True)
+if st.checkbox("Add 51.01 betas"):
+    df = pd.concat([df, betas])
+    df.sort_values(by=[date_column], inplace=True, ignore_index=True)
 
 df[date_column] = pd.to_datetime(df[date_column])
 
