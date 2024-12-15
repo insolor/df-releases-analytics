@@ -7,6 +7,11 @@ st.set_page_config(page_title=title, layout="wide", page_icon="📈")
 
 st.header(title)
 
+st.markdown("""Based on data from
+[bay12games.com/dwarves/older_versions](https://bay12games.com/dwarves/older_versions.html) and manually added
+information about 51.01 betas from [steam](https://store.steampowered.com/news/app/975370?updates=true).
+""")
+
 df = pd.read_csv("releases.csv")
 
 date_column = "release_date"
