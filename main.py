@@ -8,17 +8,17 @@ st.set_page_config(page_title=title, layout="wide", page_icon="📈")
 st.header(title)
 
 st.markdown("""Based on data from
-[bay12games.com/dwarves/older_versions](https://bay12games.com/dwarves/older_versions.html) and manually added
-information about 51.01 betas from [steam](https://store.steampowered.com/news/app/975370?updates=true).
+[bay12games.com/dwarves/older_versions](https://bay12games.com/dwarves/older_versions.html) and
+information about betas from [steam](https://store.steampowered.com/news/app/975370?updates=true).
 """)
 
 df = pd.read_csv("releases.csv")
 
 date_column = "release_date"
 
-# Add 51.01 beta versions
-betas = pd.read_csv("betas.csv")
-if st.checkbox("Add 51.01 betas"):
+# Add beta versions
+betas = pd.read_json("betas.json")
+if st.checkbox("Add betas"):
     df = pd.concat([df, betas])
     df.sort_values(by=[date_column], inplace=True, ignore_index=True)
 

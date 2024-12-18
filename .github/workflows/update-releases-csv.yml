@@ -21,8 +21,10 @@ jobs:
         with:
           version: "latest"
 
-      - name: Run update script
-        run: uv run grab_release_dates.py
+      - name: Run update scripts
+        run: |
+          uv run grab_release_dates.py
+          uv run grab_beta_dates.py
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9.1.4

@@ -1,0 +1,82 @@
+[
+  {
+    "name": "beta 27",
+    "version_number": "beta 27",
+    "release_date": "2024-12-02"
+  },
+  {
+    "name": "beta 26",
+    "version_number": "beta 26",
+    "release_date": "2024-11-27"
+  },
+  {
+    "name": "beta 25",
+    "version_number": "beta 25",
+    "release_date": "2024-10-24"
+  },
+  {
+    "name": "beta 24",
+    "version_number": "beta 24",
+    "release_date": "2024-10-23"
+  },
+  {
+    "name": "beta 23",
+    "version_number": "beta 23",
+    "release_date": "2024-09-30"
+  },
+  {
+    "name": "beta 22",
+    "version_number": "beta 22",
+    "release_date": "2024-09-04"
+  },
+  {
+    "name": "beta 21",
+    "version_number": "beta 21",
+    "release_date": "2024-08-28"
+  },
+  {
+    "name": "beta 20",
+    "version_number": "beta 20",
+    "release_date": "2024-08-14"
+  },
+  {
+    "name": "beta 19",
+    "version_number": "beta 19",
+    "release_date": "2024-07-17"
+  },
+  {
+    "name": "beta 18",
+    "version_number": "beta 18",
+    "release_date": "2024-06-26"
+  },
+  {
+    "name": "beta 15",
+    "version_number": "beta 15",
+    "release_date": "2024-06-17"
+  },
+  {
+    "name": "beta 14",
+    "version_number": "beta 14",
+    "release_date": "2024-05-15"
+  },
+  {
+    "name": "beta 13",
+    "version_number": "beta 13",
+    "release_date": "2024-04-21"
+  },
+  {
+    "name": "beta 12",
+    "version_number": "beta 12",
+    "release_date": "2024-04-17"
+  },
+  {
+    "name": "beta unknown",
+    "version_number": "beta unknown",
+    "release_date": "2023-09-12"
+  },
+  {
+    "name": "beta unknown",
+    "version_number": "beta unknown",
+    "release_date": "2023-04-13"
+  }
+]
