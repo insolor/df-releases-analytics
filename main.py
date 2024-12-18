@@ -94,8 +94,8 @@ if selection:
         st.write(f"Selected period: from {bucket[0]} to {bucket[-1]}")
 
     versions_with_dates = (
-        buckets.loc[bucket[0] : bucket[-1]]["version_with_date"].apply(pd.Series).stack().unique()
-    ).tolist()
+        buckets.loc[bucket[0] : bucket[-1]]["version_with_date"].apply(pd.Series).stack().unique().tolist()
+    )
 
     df = pd.DataFrame(versions_with_dates, columns=["version", "date"])
     st.dataframe(df, hide_index=True, width=500)
