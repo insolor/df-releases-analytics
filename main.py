@@ -1,3 +1,4 @@
+from datetime import datetime
 import altair as alt
 import pandas as pd
 import streamlit as st
@@ -40,7 +41,8 @@ match group_by:
         axis_name = "Years"
 
 start_date = df[date_column].min().to_period(period_letter)
-end_date = df[date_column].max().to_period(period_letter)
+end_date = pd.Period(datetime.now(), period_letter)
+
 period_range = pd.period_range(start=start_date, end=end_date, freq=period_letter)
 
 df["bucket"] = df[date_column].dt.to_period(period_letter)
