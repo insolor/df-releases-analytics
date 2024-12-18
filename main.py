@@ -44,15 +44,9 @@ end_date = df[date_column].max().to_period(period_letter)
 period_range = pd.period_range(start=start_date, end=end_date, freq=period_letter)
 
 df["bucket"] = df[date_column].dt.to_period(period_letter)
-df["version_with_date"] = df.apply(
-    lambda row: (row["version_number"], row["release_date"].date().isoformat()), axis=1
-)
+df["version_with_date"] = df.apply(lambda row: (row["version_number"], row["release_date"].date().isoformat()), axis=1)
 
-buckets = (
-    df.groupby("bucket")
-    .agg({"version_with_date": lambda x: list(x)})
-    .reindex(period_range, fill_value=[])
-)
+buckets = df.groupby("bucket").agg({"version_with_date": lambda x: list(x)}).reindex(period_range, fill_value=[])
 
 buckets.index = buckets.index.astype(str)
 buckets["count"] = buckets["version_with_date"].apply(len)
@@ -98,10 +92,7 @@ if selection:
         st.write(f"Selected period: from {bucket[0]} to {bucket[-1]}")
 
     versions_with_dates = (
-        buckets.loc[bucket[0] : bucket[-1]]["version_with_date"]
-        .apply(pd.Series)
-        .stack()
-        .unique()
+        buckets.loc[bucket[0] : bucket[-1]]["version_with_date"].apply(pd.Series).stack().unique()
     ).tolist()
 
     df = pd.DataFrame(versions_with_dates, columns=["version", "date"])
