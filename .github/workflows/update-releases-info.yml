@@ -1,4 +1,4 @@
-name: Update releases.csv
+name: Update release info
 on:
   schedule:
     - cron: "0 9,21 * * *"  # Run at about 0am and 12pm GMT+3
