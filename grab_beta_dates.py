@@ -12,6 +12,7 @@ df_app_id = 975370
 
 root_dir = Path(__file__).parent
 betas_json = root_dir / "betas.json"
+ignore_posts_json = root_dir / "ignore_posts.json"
 
 
 def get_last_posts(*, count) -> list[dict[str, Any]]:
@@ -48,8 +49,13 @@ def main() -> None:
         betas_set = set()
 
     posts = get_last_posts(count=10)
+    
+    ignore_posts = set(json.loads(ignore_posts_json.read_text()))
 
     for post in posts:
+        if post["gid"] in ignore_posts:
+            continue
+
         beta_number = parse_beta(post["title"])
 
         if beta_number:
