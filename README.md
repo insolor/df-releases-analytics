@@ -4,4 +4,4 @@
 ](https://df-releases-analytics.streamlit.app)
 
 Based on data from [bay12games.com/dwarves/older_versions](https://bay12games.com/dwarves/older_versions.html) and
-manually added information about 51.01 betas from [steam](https://store.steampowered.com/news/app/975370?updates=true).
+information about betas from [steam](https://store.steampowered.com/news/app/975370?updates=true).
