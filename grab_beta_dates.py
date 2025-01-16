@@ -42,10 +42,10 @@ def parse_beta(title: str) -> str | None:
 def main() -> None:
     if betas_json.exists():
         betas = json.loads(betas_json.read_text())
-        release_dates = {item["release_date"] for item in betas}
+        known_betas = {item["release_date"] for item in betas}
     else:
         betas = []
-        release_dates = set()
+        known_betas = set()
 
     posts = get_last_posts(count=10)
 
@@ -59,10 +59,10 @@ def main() -> None:
             version = f"beta {beta_number}"
             date = datetime.fromtimestamp(post["date"]).date()
             item = {"name": version, "version_number": version, "release_date": date.isoformat()}
-            key = item["release_date"]
+            key = (item["release_date"], item["version_number"])
 
-            if key not in release_dates:
-                release_dates.add(key)
+            if key not in known_betas:
+                known_betas.add(key)
                 betas.append(item)
 
     betas_json.write_text(json.dumps(betas, indent=2))
