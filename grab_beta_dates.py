@@ -12,7 +12,6 @@ df_app_id = 975370
 
 root_dir = Path(__file__).parent
 betas_json = root_dir / "betas.json"
-ignore_posts_json = root_dir / "ignore_posts.json"
 
 
 def get_last_posts(*, count) -> list[dict[str, Any]]:
@@ -44,22 +43,20 @@ def main() -> None:
     if betas_json.exists():
         betas = json.loads(betas_json.read_text())
         release_dates = {item["release_date"] for item in betas}
-        exisiting_versions = {beta["name"] for beta in betas}
     else:
         betas = []
         release_dates = set()
-        exisiting_versions = set()
 
     posts = get_last_posts(count=10)
 
     for post in posts:
+        if "steam_community_announcements" not in post["url"]:
+            continue
+
         beta_number = parse_beta(post["title"])
 
         if beta_number:
             version = f"beta {beta_number}"
-            if version != "beta unknown" and version in exisiting_versions:
-                continue
-
             date = datetime.fromtimestamp(post["date"]).date()
             item = {"name": version, "version_number": version, "release_date": date.isoformat()}
             key = item["release_date"]
