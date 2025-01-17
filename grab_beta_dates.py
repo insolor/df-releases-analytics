@@ -42,7 +42,7 @@ def parse_beta(title: str) -> str | None:
 def main() -> None:
     if betas_json.exists():
         betas = json.loads(betas_json.read_text())
-        known_betas = {item["release_date"] for item in betas}
+        known_betas = {(item["release_date"], item["version_number"]) for item in betas}
     else:
         betas = []
         known_betas = set()
