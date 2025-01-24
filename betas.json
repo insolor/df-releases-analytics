@@ -83,5 +83,10 @@
     "name": "beta 28",
     "version_number": "beta 28",
     "release_date": "2025-01-08"
+  },
+  {
+    "name": "51.01 (rc1)",
+    "version_number": "51.01",
+    "release_date": "2025-01-22",
   }
 ]
