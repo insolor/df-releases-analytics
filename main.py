@@ -46,7 +46,7 @@ end_date = pd.Period(datetime.now(), period_letter)
 period_range = pd.period_range(start=start_date, end=end_date, freq=period_letter)
 
 df["bucket"] = df[date_column].dt.to_period(period_letter)
-df["version_with_date"] = df.apply(lambda row: (row["version_number"], row["release_date"].date().isoformat()), axis=1)
+df["version_with_date"] = df.apply(lambda row: (row["name"], row["release_date"].date().isoformat()), axis=1)
 
 buckets = df.groupby("bucket").agg({"version_with_date": lambda x: list(x)}).reindex(period_range, fill_value=[])
 
