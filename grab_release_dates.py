@@ -55,7 +55,7 @@ def get_release_info() -> pd.DataFrame:
         
         try:
             result.append(parse_version(version_text))
-        except ValueError as e:
+        except ValueError:
             print(f"Could not parse version text: {version_text!r}")
 
     return pd.DataFrame(reversed(result))
