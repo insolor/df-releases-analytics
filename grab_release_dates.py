@@ -19,7 +19,7 @@ class ReleaseInfo(NamedTuple):
 def parse_version(version_text: str) -> ReleaseInfo:
     result = re.search(r"DF (.*?) \(([A-Za-z]+) (\d+), (\d{4})\)", version_text)
     if not result:
-        raise ValueError(f"Could not parse version text: {version_text}")
+        raise ValueError(f"Could not parse version text: {version_text!r}")
 
     date_text = f"{result.group(2)[:3]} {result.group(3)}, {result.group(4)}"
     release_date = datetime.strptime(date_text, "%b %d, %Y")
@@ -52,8 +52,11 @@ def get_release_info() -> pd.DataFrame:
 
         else:
             version_text = paragraph.contents[0]
-
-        result.append(parse_version(version_text))
+        
+        try:
+            result.append(parse_version(version_text))
+        except ValueError as e:
+            print(f"Could not parse version text: {version_text!r}")
 
     return pd.DataFrame(reversed(result))
 
