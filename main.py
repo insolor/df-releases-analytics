@@ -19,7 +19,7 @@ date_column = "release_date"
 
 # Add beta versions
 betas = pd.read_json("betas.json")
-if st.checkbox("Add betas"):
+if st.checkbox("Add 50, 51 betas"):
     df = pd.concat([df, betas])
     df.sort_values(by=[date_column], inplace=True, ignore_index=True)
 
