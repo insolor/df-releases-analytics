@@ -4,6 +4,14 @@ on:
     - cron: "0 9,21 * * *"  # Run at about 0am and 12pm GMT+3
   workflow_dispatch:
 
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
 permissions:
   contents: write
 
@@ -30,6 +38,7 @@ jobs:
           uv run grab_beta_dates.py
 
       - name: Commit changes
+        if: ${{ contains(fromJSON('["workflow_dispatch", "schedule"]'), github.event_name) }}
         uses: EndBug/add-and-commit@v9.1.4
         with:
           add: releases.csv betas.json
