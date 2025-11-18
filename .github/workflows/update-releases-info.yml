@@ -1,7 +1,7 @@
 name: Update release info
 on:
   schedule:
-    - cron: "0 3,9,15,21 * * *"  # Run at about 0am, 5am, 12pm, 18pm GMT+3
+    - cron: "0 * * * *"
   workflow_dispatch:
 
   push:
