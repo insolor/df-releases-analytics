@@ -28,7 +28,7 @@ jobs:
           python-version: 3.12
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v9.0.0
+        uses: astral-sh/setup-uv@v10.0.1
         with:
           version: "latest"
 
@@ -39,7 +39,7 @@ jobs:
 
       - name: Commit changes
         if: ${{ contains(fromJSON('["workflow_dispatch", "schedule"]'), github.event_name) }}
-        uses: EndBug/add-and-commit@v10.0.0
+        uses: EndBug/add-and-commit@v11.1.1
         with:
           add: releases.csv betas.json
           message: "Update releases and betas dates"
