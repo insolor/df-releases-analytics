@@ -90,7 +90,7 @@ chart = (
     .add_params(interval)
 )
 
-event = st.altair_chart(chart, use_container_width=True, on_select="rerun")
+event = st.altair_chart(chart, width="stretch", on_select="rerun")
 
 selection = event["selection"]["param_1"]
 if selection:
