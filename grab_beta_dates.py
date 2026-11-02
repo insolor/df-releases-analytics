@@ -1,9 +1,10 @@
 import json
-from pathlib import Path
 import re
-from typing import Any
-import requests
 from datetime import datetime
+from pathlib import Path
+from typing import Any
+
+import requests
 
 # Docs: https://developer.valvesoftware.com/wiki/Steam_Web_API#GetNewsForApp_(v0002)
 news_request_url = "https://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/"
@@ -17,7 +18,7 @@ betas_json = root_dir / "betas.json"
 def get_last_posts(*, count) -> list[dict[str, Any]]:
     response = requests.get(
         news_request_url,
-        params=dict(appid=df_app_id, count=count, maxlength=1, format="json"),
+        params=dict(appid=df_app_id, count=count, maxlength=1, format="json"),  # noqa: C408
     )
     response.raise_for_status()
     return response.json()["appnews"]["newsitems"]

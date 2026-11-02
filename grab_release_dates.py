@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-from datetime import date, datetime
 import re
+from datetime import date, datetime
 from typing import NamedTuple
 
+import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-
-import pandas as pd
 
 
 class ReleaseInfo(NamedTuple):

@@ -1,4 +1,5 @@
 from datetime import datetime
+
 import altair as alt
 import pandas as pd
 import streamlit as st
@@ -25,6 +26,10 @@ if st.checkbox("Add 50, 51 betas"):
 
 df[date_column] = pd.to_datetime(df[date_column])
 
+period_letter = "M"
+period_name = "Month"
+axis_name = "Months"
+
 group_by = st.radio("Group by", ["Months", "Quarters", "Years"])
 match group_by:
     case "Months":
@@ -48,7 +53,10 @@ period_range = pd.period_range(start=start_date, end=end_date, freq=period_lette
 df["bucket"] = df[date_column].dt.to_period(period_letter)
 df["version_with_date"] = df.apply(lambda row: (row["name"], row["release_date"].date().isoformat()), axis=1)
 
-buckets = df.groupby("bucket").agg({"version_with_date": lambda x: list(x)}).reindex(period_range, fill_value=[])
+buckets = df.groupby("bucket").agg({"version_with_date": lambda x: list(x)}).reindex(period_range)
+buckets["version_with_date"] = buckets["version_with_date"].map(
+    lambda versions: versions if isinstance(versions, list) else []
+)
 
 buckets.index = buckets.index.astype(str)
 buckets["count"] = buckets["version_with_date"].apply(len)
