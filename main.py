@@ -93,8 +93,12 @@ if selection:
     else:
         st.write(f"Selected period: from {bucket[0]} to {bucket[-1]}")
 
-    versions_with_dates = (
-        buckets.loc[bucket[0] : bucket[-1]]["version_with_date"].apply(pd.Series).stack().unique().tolist()
+    versions_with_dates = list(
+        dict.fromkeys(
+            version_with_date
+            for versions in buckets.loc[bucket[0] : bucket[-1]]["version_with_date"]
+            for version_with_date in versions
+        )
     )
 
     df = pd.DataFrame(versions_with_dates, columns=["version", "date"])
